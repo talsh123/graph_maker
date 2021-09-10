@@ -46,7 +46,7 @@ global count
 count=0
 ships_data = os.listdir('./')
 for file in ships_data:
-    if file.endswith('.csv'):
+    if file.endswith('.csv') and file != 'new.csv':
         checkbox_value = IntVar()
         checkbox = Checkbutton(check_buttons_frame, text=f'{file}', variable=checkbox_value, fg='white', bg='black', font='Calibri 11', selectcolor='grey')
         checkbox.pack(anchor='nw')
