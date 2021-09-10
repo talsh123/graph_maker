@@ -10,7 +10,6 @@ from PIL import ImageTk, Image
 # Sum of Red, Black and static data rates
 lists_red = []
 lists_black = []
-sum_static_y_val = [6000000]
 
 # GUI
 root = Tk()
@@ -134,6 +133,7 @@ def updateCheckboxes():
         # Accumulating all the red and black lists
         sum_red = [sum(x) for x in zip(*lists_red)]
         sum_black = [sum(x) for x in zip(*lists_black)]
+        sum_static = [6000000 * len(ships_chosen)]
 
         avg_red = sum(sum_red) / len(sum_red)
         avg_black = sum(sum_black) / len(sum_black)
@@ -145,7 +145,7 @@ def updateCheckboxes():
         fig.add_trace(
             go.Scatter(
                 x=x_axis,
-                y=[6000000] * len(x_axis),
+                y=sum_static * len(x_axis),
                 name = "Static Data Rate",
                 marker=dict(
                     color='blue'
