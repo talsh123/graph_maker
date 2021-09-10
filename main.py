@@ -5,37 +5,59 @@ import numpy as np
 import os
 from tkinter import *
 import matplotlib.pyplot as plt
+from PIL import ImageTk, Image
 
 # Sum of Red, Black and static data rates
 lists_red = []
 lists_black = []
 sum_static_y_val = [6000000]
 
-# Graph Maker GUI
+# GUI
 root = Tk()
-root.title('Graph Maker App')
+root.title('ניסוי הדרת המלך')
+root.geometry('800x618')
 
-canvas = Canvas(root)
-canvas.pack()
+# Background Image
+img=ImageTk.PhotoImage(Image.open('./background.jpeg'))
+bg_label = Label(root, image=img)
+bg_label.place(x=0, y=0)
 
-frame= Frame(root, height=700, width=700, bg='#263D42')
-frame.place(relwidth=0.9, relheight=0.9, relx=0.05, rely=0.05)
+# 1st Heading
+heading_frame = Frame(root, bg='#1a1a1a')
+heading_frame.pack(pady=20, padx=60)
+heading_Label = Label(heading_frame, bg='#1a1a1a', fg='white', font="Calibri 30", text='ניסוי הדרת המלך')
+heading_Label.pack()
+
+# Main Text
+main_text_frame = Frame(root, bg='#1a1a1a')
+main_text_frame.pack(pady=20, padx=60)
+main_text_Label = Label(main_text_frame, anchor='w', font="Calibri 12", text=':בחר את הכלים אותם תרצה להפעיל', bg='#1a1a1a', fg='white')
+main_text_Label.pack()
 
 # list of 0 or 1 values indicating if the checkbox is checked
 checkboxes_values = []
 # An array containing the ship data files
 ships_data_files = []
 
+# Checkbuttons frame
+check_buttons_frame = Frame(root, bg='#1a1a1a')
+
 # Gets the ships data file names
+global count
+count=0
 ships_data = os.listdir('./')
 for file in ships_data:
     if file.endswith('.csv'):
         checkbox_value = IntVar()
-        checkbox = Checkbutton(frame, text=f'{file}', variable=checkbox_value)
-        checkbox.pack()
+        checkbox = Checkbutton(check_buttons_frame, text=f'{file}', variable=checkbox_value, fg='white', bg='black', font='Calibri 11', selectcolor='grey')
+        checkbox.pack(anchor='nw')
         # Appends to the data files array and to the checkboxes array to link to eachother
         ships_data_files.append(file)
         checkboxes_values.append(checkbox_value)
+        count += 1
+
+    check_buttons_frame.pack(pady=20, padx=60)      
+
 
 def updateCheckboxes():
     # An array containing the chosen ship data files
@@ -46,7 +68,7 @@ def updateCheckboxes():
     
     if len(ships_chosen):
         # Levels
-        levels = [250000, 1000000, 2000000, 3000000, 6000000, 9000000, 12000000]
+        levels = [250000,1000000 , 2500000, 4000000, 5500000, 7000000, 8500000, 10000000, 12000000]
 
         for ship_file_name in ships_chosen:
             temp_red = []
@@ -188,10 +210,10 @@ def updateCheckboxes():
                 if i < len(sum_red) and i < len(sum_black):
                     writer.writerow([sum_red[i], sum_black[i], 6000000])
     else:
-        Label(frame, text='You must choose a .csv file').pack()
+        Label(root, text='You must choose a .csv file').pack()
 
 
-showGraphButton = Button(root, text='Create Graph', command=updateCheckboxes)
+showGraphButton = Button(root, text='צור גרף', command=updateCheckboxes, bg='#1a1a1a', font='Calibri 11', fg='white')
 showGraphButton.pack()
 
 root.mainloop()
