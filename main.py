@@ -6,6 +6,7 @@ import os
 from tkinter import *
 import matplotlib.pyplot as plt
 from PIL import ImageTk, Image
+import math
 
 # Sum of Red, Black and static data rates
 lists_red = []
@@ -67,7 +68,7 @@ def updateCheckboxes():
     
     if len(ships_chosen):
         # Levels
-        levels = [250000,1000000 , 2500000, 4000000, 5500000, 7000000, 8500000, 10000000, 12000000]
+        levels = [250000, 1000000, 2500000, 4000000, 5500000, 7000000, 8500000, 10000000, 12000000]
 
         for ship_file_name in ships_chosen:
             temp_red = []
@@ -92,7 +93,7 @@ def updateCheckboxes():
             max_y_index = len(temp_red)
             jump_index = 0
             # Current level value
-            current_level = levels[0]
+            current_level = levels[math.floor(len(levels) / 2)]
 
             # Final black y values
             temp_black = []
