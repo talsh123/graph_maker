@@ -4,7 +4,6 @@ import plotly.graph_objects as go
 import numpy as np
 import os
 from tkinter import *
-import matplotlib.pyplot as plt
 from PIL import ImageTk, Image
 import math
 
@@ -195,14 +194,6 @@ def updateCheckboxes():
             ))
 
         fig.show()
-
-    #   Internal Graph Window
-        plt.plot(np.array(sum_red), color='red')
-        plt.plot(np.array(sum_black), color='black')
-        plt.plot(np.array([6000000] * len(x_axis)), color='blue')
-        plt.plot(np.array([avg_red] * len(x_axis)), color='purple')
-        plt.plot(np.array([avg_black] * len(x_axis)), color='orange')
-        plt.show()
 
         # Exporting the data to csv file
         with open(f'./new.csv', 'w', newline='') as file:
